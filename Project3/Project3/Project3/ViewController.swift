@@ -14,6 +14,9 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Storm Viewer"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                            target: self,
+                                                            action: #selector(shareTapped))
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let fm = FileManager.default
@@ -46,7 +49,12 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-
+    
+    @objc func shareTapped() {
+        let recomendation = "Project 3: This is a great app, you should get it from the app store"
+        let vc = UIActivityViewController(activityItems: [recomendation], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
 }
 
