@@ -81,9 +81,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
+        
+        let message = "The site you are attempting to visit is not on the approved site list"
+        let ac = UIAlertController(title: "Site Blocked", message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Close", style: .cancel))
+        present(ac, animated: true)
         decisionHandler(.cancel)
     }
-    
-    
 }
 
