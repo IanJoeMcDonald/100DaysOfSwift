@@ -13,7 +13,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "hackingwithswift.com"]
+    var website = ""
+    var allowedWebsites = [String]()
     
     override func loadView() {
         webView = WKWebView()
@@ -23,13 +24,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "https://" + websites[0])!
+        let url = URL(string: "https://" + website)!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain,
-                                                            target: self,
-                                                            action: #selector(openTapped))
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let backButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: webView,
@@ -52,22 +50,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    @objc func openTapped() {
-        let ac = UIAlertController(title: "Open page...", message: nil,
-                                   preferredStyle: .actionSheet)
-        for website in websites {
-            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
-        }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        present(ac, animated: true)
-    }
-    
-    func openPage(action: UIAlertAction) {
-        let url = URL(string: "https://" + action.title!)!
-        webView.load(URLRequest(url: url))
-    }
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
     }
@@ -78,7 +60,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let url = navigationAction.request.url
         
         if let host = url?.host {
-            for website in websites {
+            for website in allowedWebsites {
                 if host.contains(website) {
                     decisionHandler(.allow)
                     return
