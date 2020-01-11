@@ -61,25 +61,22 @@ class ViewController: UITableViewController {
 
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
-    
-                    return
                 } else {
                     errorTitle = "Word not recognised"
                     errorMessage = "You can't just make them up, you know"
+                    showErrorMessage(title: errorTitle, message: errorMessage)
                 }
             } else {
                 errorTitle = "Word used already"
                 errorMessage = "Be more original!"
+                showErrorMessage(title: errorTitle, message: errorMessage)
             }
         } else {
             guard let title = title?.lowercased() else { return }
             errorTitle = "Word not possible"
             errorMessage = "You can't spell that word from \(title)"
+            showErrorMessage(title: errorTitle, message: errorMessage)
         }
-
-        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
     }
     
     func isPossible(word: String) -> Bool {
@@ -119,6 +116,12 @@ class ViewController: UITableViewController {
             }
         }
         return false
+    }
+    
+    func showErrorMessage(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
     @objc func promptForAnswer() {
