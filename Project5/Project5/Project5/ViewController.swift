@@ -100,12 +100,25 @@ class ViewController: UITableViewController {
     }
     
     func isReal(word: String) -> Bool {
+        if word.count < 3 { return false }
+        
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range,
                                                             startingAt: 0, wrap: false,
                                                             language: "en")
-        return  misspelledRange.location == NSNotFound
+        
+        if !(misspelledRange.location == NSNotFound) { return false }
+        
+        guard var tempWord = title?.lowercased() else { return false }
+        for letter in word {
+            if letter == tempWord.first {
+                tempWord.remove(at: tempWord.startIndex)
+            } else {
+                return true
+            }
+        }
+        return false
     }
     
     @objc func promptForAnswer() {
