@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition]()
+    var basePetitions = [Petition]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,9 @@ class ViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain,
                                                             target: self,
                                                             action: #selector(creditsTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain,
+                                                           target: self,
+                                                           action: #selector(filterTapped))
         
         let urlString: String
         if navigationController?.tabBarItem.tag == 0 {
@@ -63,7 +67,8 @@ class ViewController: UITableViewController {
         let decoder = JSONDecoder()
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
-            petitions = jsonPetitions.results
+            basePetitions = jsonPetitions.results
+            petitions = basePetitions
             tableView.reloadData()
         }
     }
@@ -82,6 +87,26 @@ class ViewController: UITableViewController {
                                    preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Close", style: .default))
         present(ac, animated: true)
+    }
+    
+    @objc func filterTapped() {
+        let ac = UIAlertController(title: "Search", message: "Enter the term to search for",
+                                   preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Search", style: .default, handler: { (_) in
+            let filteredPetitions = self.basePetitions.filter { (petition) -> Bool in
+                guard let term = ac.textFields?[0].text else { return false }
+                return petition.title.contains(term)
+            }
+            self.petitions = filteredPetitions
+            self.tableView.reloadData()
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+            self.petitions = self.basePetitions
+            self.tableView.reloadData()
+        }))
+        present(ac, animated: true)
+        
     }
 }
 
