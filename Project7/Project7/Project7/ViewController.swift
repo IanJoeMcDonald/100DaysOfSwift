@@ -14,6 +14,10 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain,
+                                                            target: self,
+                                                            action: #selector(creditsTapped))
+        
         let urlString: String
         if navigationController?.tabBarItem.tag == 0 {
             //urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -32,6 +36,8 @@ class ViewController: UITableViewController {
         }
         
         showError()
+        
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,6 +75,13 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
-
+    
+    @objc func creditsTapped() {
+        let ac = UIAlertController(title: "Credits",
+                                   message: "This data comes from the We The People API of the whitehouse",
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Close", style: .default))
+        present(ac, animated: true)
+    }
 }
 
