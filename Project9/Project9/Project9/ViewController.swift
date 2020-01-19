@@ -102,12 +102,16 @@ class ViewController: UITableViewController {
                                    preferredStyle: .alert)
         ac.addTextField()
         ac.addAction(UIAlertAction(title: "Search", style: .default, handler: { (_) in
-            let filteredPetitions = self.basePetitions.filter { (petition) -> Bool in
-                guard let term = ac.textFields?[0].text else { return false }
-                return petition.title.contains(term)
+            guard let term = ac.textFields?[0].text else { return }
+            DispatchQueue.global(qos: .userInitiated).async {
+                let filteredPetitions = self.basePetitions.filter { (petition) -> Bool in
+                    return petition.title.contains(term)
+                }
+                self.petitions = filteredPetitions
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
-            self.petitions = filteredPetitions
-            self.tableView.reloadData()
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
             self.petitions = self.basePetitions
