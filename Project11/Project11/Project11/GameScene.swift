@@ -87,11 +87,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                     addChild(box)
                 } else {
+                    let screenTopLocation = CGPoint(x: location.x, y: 700)
                     let ball = SKSpriteNode(imageNamed: availableBalls.shuffled().first!)
                     ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                     ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
                     ball.physicsBody?.restitution = 0.4
-                    ball.position = location
+                    ball.position = screenTopLocation
                     ball.name = "ball"
                     addChild(ball)
                 }
