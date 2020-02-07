@@ -49,8 +49,23 @@ UINavigationControllerDelegate {
     
     override func collectionView(_ collectionView: UICollectionView,
                                  didSelectItemAt indexPath: IndexPath) {
-        let person = people[indexPath.item]
         
+        let ac = UIAlertController(title: "Rename or Delete person",
+                                   message: "Would you like to rename or remove this person?",
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in
+            self?.renamePersonAlertController(path: indexPath)
+        })
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.deletePersonAlertController(path: indexPath)
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+    }
+    
+    func renamePersonAlertController(path: IndexPath) {
+        let person = people[path.item]
         let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
         ac.addTextField()
         
@@ -60,6 +75,19 @@ UINavigationControllerDelegate {
             guard let newName = ac?.textFields?[0].text else { return }
             person.name = newName
             
+            self?.collectionView.reloadData()
+        })
+        
+        present(ac, animated: true)
+    }
+    
+    func deletePersonAlertController(path: IndexPath) {
+        let ac = UIAlertController(title: "Delete person",
+                                   message: "Are you sure you want to remove this person?",
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.people.remove(at: path.item)
             self?.collectionView.reloadData()
         })
         
