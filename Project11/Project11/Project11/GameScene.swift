@@ -28,6 +28,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    let availableBalls = ["ballBlue", "ballCyan", "ballGreen", "ballGrey",
+                          "ballPurple", "ballRed", "ballYellow"]
 
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background.jpg")
@@ -84,7 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                     addChild(box)
                 } else {
-                    let ball = SKSpriteNode(imageNamed: "ballRed")
+                    let ball = SKSpriteNode(imageNamed: availableBalls.shuffled().first!)
                     ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                     ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
                     ball.physicsBody?.restitution = 0.4
