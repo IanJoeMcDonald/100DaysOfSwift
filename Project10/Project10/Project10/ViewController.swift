@@ -95,7 +95,38 @@ UINavigationControllerDelegate {
     }
     
     @objc func addNewPerson() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            selectLocationAlertController()
+        } else {
+            cameraRollPicker()
+        }
+    }
+    
+    func selectLocationAlertController() {
+        let ac = UIAlertController(title: "Camera or Photo Roll",
+                                   message: "Would you like to take a picture or select one from the camera roll?",
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
+            self?.cameraPicker()
+        })
+        ac.addAction(UIAlertAction(title: "Photo Roll", style: .default) { [weak self] _ in
+            self?.cameraRollPicker()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+    }
+    
+    func cameraRollPicker() {
         let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func cameraPicker() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
