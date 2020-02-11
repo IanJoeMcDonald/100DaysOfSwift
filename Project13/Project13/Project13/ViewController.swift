@@ -14,6 +14,7 @@ UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var intensity: UISlider!
+    @IBOutlet weak var changeFilterButton: UIButton!
     var currentImage: UIImage!
     var context: CIContext!
     var currentFilter: CIFilter!
@@ -29,6 +30,7 @@ UINavigationControllerDelegate {
         
         context = CIContext()
         currentFilter = CIFilter(name: "CISepiaTone")
+        changeFilterButton.setTitle("CISepiaTone", for: .normal)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
@@ -78,6 +80,7 @@ UINavigationControllerDelegate {
         // safely read the alert action's title
         guard let actionTitle = action.title else { return }
         
+        changeFilterButton.setTitle(actionTitle, for: .normal)
         currentFilter = CIFilter(name: actionTitle)
         
         let beginImage = CIImage(image: currentImage)

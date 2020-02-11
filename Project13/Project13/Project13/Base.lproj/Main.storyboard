@@ -90,6 +90,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="KiG-Mc-1aI"/>
                     <connections>
+                        <outlet property="changeFilterButton" destination="rol-qy-yNZ" id="ZPr-jP-Sj7"/>
                         <outlet property="imageView" destination="s2r-VS-As3" id="GHc-6E-EdV"/>
                         <outlet property="intensity" destination="PRZ-pE-FBX" id="pek-bT-Zz1"/>
                     </connections>
