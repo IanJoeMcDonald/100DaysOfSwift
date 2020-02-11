@@ -14,6 +14,7 @@ UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var intensity: UISlider!
+    @IBOutlet weak var radius: UISlider!
     @IBOutlet weak var changeFilterButton: UIButton!
     var currentImage: UIImage!
     var context: CIContext!
@@ -54,7 +55,7 @@ UINavigationControllerDelegate {
             currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
         }
         if inputKeys.contains(kCIInputRadiusKey) {
-            currentFilter.setValue(intensity.value * 200, forKey: kCIInputRadiusKey)
+            currentFilter.setValue(radius.value * 200, forKey: kCIInputRadiusKey)
         }
         if inputKeys.contains(kCIInputScaleKey) {
             currentFilter.setValue(intensity.value * 10, forKey: kCIInputScaleKey)
@@ -142,6 +143,9 @@ UINavigationControllerDelegate {
     }
     
     @IBAction func intensityChanged(_ sender: UISlider) {
+        applyProcessing()
+    }
+    @IBAction func radiusChanged(_ sender: UISlider) {
         applyProcessing()
     }
 }
