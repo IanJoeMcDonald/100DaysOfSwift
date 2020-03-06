@@ -90,6 +90,7 @@ class GameScene: SKScene {
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
             addChild(gameOver)
+            run(SKAction.playSoundFileNamed("gameOver.mp3", waitForCompletion: false))
             
             return
         }

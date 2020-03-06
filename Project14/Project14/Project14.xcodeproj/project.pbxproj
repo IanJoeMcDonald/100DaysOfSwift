@@ -23,6 +23,7 @@
 		6184D9542412A49800CFAE27 /* gameOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6184D94C2412A49800CFAE27 /* gameOver@2x.png */; };
 		6184D9552412A49800CFAE27 /* whackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6184D94D2412A49800CFAE27 /* whackBackground@2x.png */; };
 		6184D9572412A61100CFAE27 /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184D9562412A61100CFAE27 /* WhackSlot.swift */; };
+		6184D9592412BDCA00CFAE27 /* gameOver.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6184D9582412BDCA00CFAE27 /* gameOver.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		6184D94C2412A49800CFAE27 /* gameOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameOver@2x.png"; sourceTree = "<group>"; };
 		6184D94D2412A49800CFAE27 /* whackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whackBackground@2x.png"; sourceTree = "<group>"; };
 		6184D9562412A61100CFAE27 /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
+		6184D9582412BDCA00CFAE27 /* gameOver.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOver.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				6184D94B2412A49800CFAE27 /* whack.caf */,
 				6184D94C2412A49800CFAE27 /* gameOver@2x.png */,
 				6184D94D2412A49800CFAE27 /* whackBackground@2x.png */,
+				6184D9582412BDCA00CFAE27 /* gameOver.mp3 */,
 			);
 			name = Content;
 			path = ../../Content;
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6184D9542412A49800CFAE27 /* gameOver@2x.png in Resources */,
+				6184D9592412BDCA00CFAE27 /* gameOver.mp3 in Resources */,
 				6184D9522412A49800CFAE27 /* penguinEvil@2x.png in Resources */,
 				6184D9532412A49800CFAE27 /* whack.caf in Resources */,
 				6184D9502412A49800CFAE27 /* penguinGood@2x.png in Resources */,
