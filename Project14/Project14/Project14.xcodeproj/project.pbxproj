@@ -24,6 +24,11 @@
 		6184D9552412A49800CFAE27 /* whackBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6184D94D2412A49800CFAE27 /* whackBackground@2x.png */; };
 		6184D9572412A61100CFAE27 /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184D9562412A61100CFAE27 /* WhackSlot.swift */; };
 		6184D9592412BDCA00CFAE27 /* gameOver.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6184D9582412BDCA00CFAE27 /* gameOver.mp3 */; };
+		6184D95B2412BFD400CFAE27 /* mud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6184D95A2412BFD400CFAE27 /* mud.sks */; };
+		6184D97B2412C37D00CFAE27 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 6184D97A2412C37D00CFAE27 /* bokeh.png */; };
+		6184D97D2412C38400CFAE27 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6184D97C2412C38300CFAE27 /* spark.png */; };
+		6184D97F2412C43E00CFAE27 /* hitBad.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6184D97E2412C43E00CFAE27 /* hitBad.sks */; };
+		6184D9812412C49200CFAE27 /* hitGood.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6184D9802412C49200CFAE27 /* hitGood.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +51,11 @@
 		6184D94D2412A49800CFAE27 /* whackBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whackBackground@2x.png"; sourceTree = "<group>"; };
 		6184D9562412A61100CFAE27 /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
 		6184D9582412BDCA00CFAE27 /* gameOver.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOver.mp3; sourceTree = "<group>"; };
+		6184D95A2412BFD400CFAE27 /* mud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = mud.sks; path = ../../Content/mud.sks; sourceTree = "<group>"; };
+		6184D97A2412C37D00CFAE27 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
+		6184D97C2412C38300CFAE27 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		6184D97E2412C43E00CFAE27 /* hitBad.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = hitBad.sks; path = ../../Content/hitBad.sks; sourceTree = "<group>"; };
+		6184D9802412C49200CFAE27 /* hitGood.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = hitGood.sks; path = ../../Content/hitGood.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +96,9 @@
 				6184D93A2412A3F900CFAE27 /* Assets.xcassets */,
 				6184D93C2412A3F900CFAE27 /* LaunchScreen.storyboard */,
 				6184D93F2412A3F900CFAE27 /* Info.plist */,
+				6184D95A2412BFD400CFAE27 /* mud.sks */,
+				6184D97E2412C43E00CFAE27 /* hitBad.sks */,
+				6184D9802412C49200CFAE27 /* hitGood.sks */,
 				6184D9452412A49800CFAE27 /* Content */,
 				6184D9562412A61100CFAE27 /* WhackSlot.swift */,
 			);
@@ -95,6 +108,8 @@
 		6184D9452412A49800CFAE27 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				6184D97A2412C37D00CFAE27 /* bokeh.png */,
+				6184D97C2412C38300CFAE27 /* spark.png */,
 				6184D9462412A49800CFAE27 /* whackBad.caf */,
 				6184D9472412A49800CFAE27 /* whackMask@2x.png */,
 				6184D9482412A49800CFAE27 /* penguinGood@2x.png */,
@@ -171,13 +186,18 @@
 				6184D9592412BDCA00CFAE27 /* gameOver.mp3 in Resources */,
 				6184D9522412A49800CFAE27 /* penguinEvil@2x.png in Resources */,
 				6184D9532412A49800CFAE27 /* whack.caf in Resources */,
+				6184D97D2412C38400CFAE27 /* spark.png in Resources */,
+				6184D97F2412C43E00CFAE27 /* hitBad.sks in Resources */,
 				6184D9502412A49800CFAE27 /* penguinGood@2x.png in Resources */,
 				6184D94E2412A49800CFAE27 /* whackBad.caf in Resources */,
 				6184D9552412A49800CFAE27 /* whackBackground@2x.png in Resources */,
 				6184D94F2412A49800CFAE27 /* whackMask@2x.png in Resources */,
 				6184D9512412A49800CFAE27 /* whackHole@2x.png in Resources */,
 				6184D9392412A3F400CFAE27 /* Main.storyboard in Resources */,
+				6184D97B2412C37D00CFAE27 /* bokeh.png in Resources */,
 				6184D9302412A3F400CFAE27 /* GameScene.sks in Resources */,
+				6184D95B2412BFD400CFAE27 /* mud.sks in Resources */,
+				6184D9812412C49200CFAE27 /* hitGood.sks in Resources */,
 				6184D93B2412A3F900CFAE27 /* Assets.xcassets in Resources */,
 				6184D93E2412A3F900CFAE27 /* LaunchScreen.storyboard in Resources */,
 			);

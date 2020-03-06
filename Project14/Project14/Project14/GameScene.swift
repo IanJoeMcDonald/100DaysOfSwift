@@ -60,6 +60,11 @@ class GameScene: SKScene {
                 score -= 5
                 
                 run(SKAction.playSoundFileNamed("whackBad.caf", waitForCompletion: false))
+                if let particles = SKEmitterNode(fileNamed: "hitBad") {
+                    particles.position = location
+                    particles.zPosition = 1
+                    addChild(particles)
+                }
             } else if node.name == "charEnemy" {
                 //they should have whacked this one
                 
@@ -68,6 +73,11 @@ class GameScene: SKScene {
                 score += 1
                 
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
+                if let particles = SKEmitterNode(fileNamed: "hitGood") {
+                    particles.position = location
+                    particles.zPosition = 1
+                    addChild(particles)
+                }
             }
         }
     }

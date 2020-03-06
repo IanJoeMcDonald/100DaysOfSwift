@@ -40,6 +40,10 @@ class WhackSlot: SKNode {
         charNode.yScale = 1
         
         charNode.run(SKAction.moveBy(x: 0, y: 80, duration: 0.05))
+        if let mud = SKEmitterNode(fileNamed: "mud") {
+            mud.position = CGPoint(x: charNode.position.x, y: charNode.position.y + 80)
+            addChild(mud)
+        }
         isVisible = true
         isHit = false
         
@@ -60,6 +64,11 @@ class WhackSlot: SKNode {
         if !isVisible { return }
         
         charNode.run(SKAction.moveBy(x: 0, y: -80, duration: 0.05))
+        if let mud = SKEmitterNode(fileNamed: "mud") {
+            mud.position = charNode.position
+            addChild(mud)
+        }
+        
         isVisible = false
     }
     
