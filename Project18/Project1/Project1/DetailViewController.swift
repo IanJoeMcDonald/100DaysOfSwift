@@ -20,6 +20,7 @@ class DetailViewController: UIViewController {
         title = "Picture \(imageNumber ?? 0) of \(totalImages ?? 0)"
         navigationItem.largeTitleDisplayMode = .never
 
+        assert(selectedImage != nil, "No photo found")
         if let imageToLoad = selectedImage {
             imageView.image = UIImage(named: imageToLoad)
         }
