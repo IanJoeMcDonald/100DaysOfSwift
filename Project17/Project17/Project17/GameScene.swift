@@ -71,6 +71,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position = location
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player.position = player.position
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         for node in children {
             if node.position.x < -300 {
