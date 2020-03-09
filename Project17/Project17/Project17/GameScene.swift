@@ -124,6 +124,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                              selector: #selector(self.createEnemy),
                                              userInfo: nil, repeats: true)
         }
+        
+        if isGameOver {
+            gameTimer?.invalidate()
+        }
     }
     
 }
