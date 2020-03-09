@@ -14,6 +14,7 @@
 		6184D9BB2416676900CFAE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6184D9BA2416676900CFAE27 /* Assets.xcassets */; };
 		6184D9BE2416676900CFAE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6184D9BC2416676900CFAE27 /* LaunchScreen.storyboard */; };
 		6184D9C62416778C00CFAE27 /* Capital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184D9C52416778B00CFAE27 /* Capital.swift */; };
+		6184D9C82416843600CFAE27 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184D9C72416843500CFAE27 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		6184D9BD2416676900CFAE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6184D9BF2416676900CFAE27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6184D9C52416778B00CFAE27 /* Capital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capital.swift; sourceTree = "<group>"; };
+		6184D9C72416843500CFAE27 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				6184D9BC2416676900CFAE27 /* LaunchScreen.storyboard */,
 				6184D9BF2416676900CFAE27 /* Info.plist */,
 				6184D9C52416778B00CFAE27 /* Capital.swift */,
+				6184D9C72416843500CFAE27 /* DetailViewController.swift */,
 			);
 			path = Project16;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			files = (
 				6184D9B62416676300CFAE27 /* ViewController.swift in Sources */,
 				6184D9B22416676300CFAE27 /* AppDelegate.swift in Sources */,
+				6184D9C82416843600CFAE27 /* DetailViewController.swift in Sources */,
 				6184D9C62416778C00CFAE27 /* Capital.swift in Sources */,
 				6184D9B42416676300CFAE27 /* SceneDelegate.swift in Sources */,
 			);
