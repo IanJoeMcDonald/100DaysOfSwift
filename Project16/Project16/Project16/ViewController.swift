@@ -23,6 +23,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let washington = Capital(title: "Washington DC", coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), info: "Named after George himself.")
         
         mapView.addAnnotations([london, oslo, paris, rome, washington])
+        
+        title = "Capitals"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Style", style: .plain, target: self, action: #selector(setMapStyle))
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -61,6 +64,24 @@ class ViewController: UIViewController, MKMapViewDelegate {
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
-
+    
+    @objc func setMapStyle() {
+        let ac = UIAlertController(title: "Select map style...", message: nil,
+                                   preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Standard", style: .default,
+                                   handler: { _ in self.mapView.mapType = .standard }))
+        ac.addAction(UIAlertAction(title: "Muted Standard", style: .default,
+                                   handler: { _ in self.mapView.mapType = .mutedStandard }))
+        ac.addAction(UIAlertAction(title: "Hybrid", style: .default,
+                                   handler: { _ in self.mapView.mapType = .hybrid }))
+        ac.addAction(UIAlertAction(title: "Hybrid Flyover", style: .default,
+                                   handler: { _ in self.mapView.mapType = .hybridFlyover }))
+        ac.addAction(UIAlertAction(title: "Satellite", style: .default,
+                                   handler: { _ in self.mapView.mapType = .satellite }))
+        ac.addAction(UIAlertAction(title: "Satellite Flyover", style: .default,
+                                   handler: { _ in self.mapView.mapType = .satelliteFlyover }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
 }
 
