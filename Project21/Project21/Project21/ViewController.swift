@@ -19,6 +19,10 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain,
                                                             target: self,
                                                             action: #selector(scheduleLocal))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.scheduleRemindMeLater()
+        }
     }
     
     @objc func registerLocal() {
@@ -33,7 +37,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         }
     }
     
-    @objc func scheduleLocal() {
+    @objc func scheduleLocal(timeInterval: TimeInterval) {
         registerCategories()
         let center = UNUserNotificationCenter.current()
         
@@ -50,11 +54,28 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         dataComponents.minute = 30
         let trigger = UNCalendarNotificationTrigger(dateMatching: dataComponents, repeats: true)*/
         
+        let delay:TimeInterval = timeInterval > 0 ? timeInterval : 5
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content,
+                                            trigger: trigger)
+        center.add(request)
+    }
+    
+    func scheduleRemindMeLater() {
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Remind me later"
+        content.categoryIdentifier = "alarm"
+        content.sound = UNNotificationSound.default
+        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content,
                                             trigger: trigger)
         center.add(request)
+        scheduleLocal(timeInterval: 86400)
     }
     
     func registerCategories() {
@@ -99,5 +120,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         // you must call the completion handler when you're done
         completionHandler()
     }
+    
+    
 }
 
