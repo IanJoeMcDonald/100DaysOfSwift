@@ -181,7 +181,11 @@ class GameScene: SKScene {
     func explode(firework: SKNode) {
         if let emitter = SKEmitterNode(fileNamed: "explode") {
             emitter.position = firework.position
-            addChild(emitter)
+            let addEmitter = SKAction.run({ self.addChild(emitter) })
+            let wait = SKAction.wait(forDuration: 1)
+            let removeEmitter = SKAction.run({ emitter.removeFromParent() })
+            let sequence = SKAction.sequence([addEmitter, wait, removeEmitter])
+            self.run(sequence)
         }
         
         firework.removeFromParent()
