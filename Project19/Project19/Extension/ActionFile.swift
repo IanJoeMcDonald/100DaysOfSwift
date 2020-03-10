@@ -9,6 +9,7 @@
 import Foundation
 
 struct ActionFile: Codable {
+    var uuid = UUID()
     var title: String
     var text: String
 }

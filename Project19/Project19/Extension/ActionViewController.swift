@@ -14,17 +14,14 @@ class ActionViewController: UIViewController {
     
     var pageTitle = ""
     var pageURL = ""
-    var actionFiles = [String:ActionFile]()
+    var actionFile: ActionFile!
+    var delegate: ActionViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self, action: #selector(done))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain,
-                                                           target: self,
-                                                           action: #selector(prewrittenScripts))
-        loadActions()
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard),
@@ -47,11 +44,8 @@ class ActionViewController: UIViewController {
                     self?.pageURL = javaScriptValues["URL"] as? String ?? ""
                     
                     DispatchQueue.main.async {
-                        self?.title = self?.pageTitle
-                        if let urlString = self?.pageURL {
-                            print(urlString)
-                            self?.script.text = self?.actionFiles[urlString]?.text ?? ""
-                        }
+                        self?.title = self?.actionFile?.title
+                        self?.script.text = self?.actionFile?.text
                     }
                 }
             }
@@ -66,9 +60,8 @@ class ActionViewController: UIViewController {
                                               typeIdentifier: kUTTypePropertyList as String)
         item.attachments = [customJavaScript]
         
-        let newScript = ActionFile(title: pageTitle, text: script.text)
-        actionFiles[pageURL] = newScript
-        saveActions()
+        actionFile.text = script.text
+        delegate?.updateAction(actionFile)
         
         extensionContext?.completeRequest(returningItems: [item])
     }
@@ -92,34 +85,8 @@ class ActionViewController: UIViewController {
         let selectedRange = script.selectedRange
         script.scrollRangeToVisible(selectedRange)
     }
-    
-    @objc func prewrittenScripts() {
-        let ac = UIAlertController(title: "Scripts", message: "Select from the scripts below...",
-                                   preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Alert Title", style: .default,
-                                   handler: { _ in self.script.text = "alert(document.title);"}))
-        ac.addAction(UIAlertAction(title: "Alert URL", style: .default,
-                                   handler: { _ in self.script.text = "alert(document.URL);"}))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
-    }
-    
-    private func saveActions() {
-        let encoder = JSONEncoder()
-        
-        if let data = try? encoder.encode(actionFiles) {
-            UserDefaults.standard.set(data, forKey: "actionFiles")
-        }
-    }
-    
-    private func loadActions() {
-        let decoder = JSONDecoder()
-        
-        if let data = UserDefaults.standard.value(forKey: "actionFiles") as? Data {
-            if let decoded = try? decoder.decode([String: ActionFile].self, from: data) {
-                actionFiles = decoded
-            }
-        }
-    }
+}
 
+protocol ActionViewDelegate {
+    func updateAction(_ action: ActionFile)
 }
