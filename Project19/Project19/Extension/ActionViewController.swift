@@ -14,6 +14,7 @@ class ActionViewController: UIViewController {
     
     var pageTitle = ""
     var pageURL = ""
+    var actionFiles = [String:ActionFile]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class ActionViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain,
                                                            target: self,
                                                            action: #selector(prewrittenScripts))
+        loadActions()
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard),
@@ -46,6 +48,10 @@ class ActionViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         self?.title = self?.pageTitle
+                        if let urlString = self?.pageURL {
+                            print(urlString)
+                            self?.script.text = self?.actionFiles[urlString]?.text ?? ""
+                        }
                     }
                 }
             }
@@ -59,6 +65,10 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary,
                                               typeIdentifier: kUTTypePropertyList as String)
         item.attachments = [customJavaScript]
+        
+        let newScript = ActionFile(title: pageTitle, text: script.text)
+        actionFiles[pageURL] = newScript
+        saveActions()
         
         extensionContext?.completeRequest(returningItems: [item])
     }
@@ -92,6 +102,24 @@ class ActionViewController: UIViewController {
                                    handler: { _ in self.script.text = "alert(document.URL);"}))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    private func saveActions() {
+        let encoder = JSONEncoder()
+        
+        if let data = try? encoder.encode(actionFiles) {
+            UserDefaults.standard.set(data, forKey: "actionFiles")
+        }
+    }
+    
+    private func loadActions() {
+        let decoder = JSONDecoder()
+        
+        if let data = UserDefaults.standard.value(forKey: "actionFiles") as? Data {
+            if let decoded = try? decoder.decode([String: ActionFile].self, from: data) {
+                actionFiles = decoded
+            }
+        }
     }
 
 }
