@@ -20,6 +20,9 @@ class ActionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self, action: #selector(done))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain,
+                                                           target: self,
+                                                           action: #selector(prewrittenScripts))
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard),
@@ -78,6 +81,17 @@ class ActionViewController: UIViewController {
         
         let selectedRange = script.selectedRange
         script.scrollRangeToVisible(selectedRange)
+    }
+    
+    @objc func prewrittenScripts() {
+        let ac = UIAlertController(title: "Scripts", message: "Select from the scripts below...",
+                                   preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Alert Title", style: .default,
+                                   handler: { _ in self.script.text = "alert(document.title);"}))
+        ac.addAction(UIAlertAction(title: "Alert URL", style: .default,
+                                   handler: { _ in self.script.text = "alert(document.URL);"}))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
 
 }
