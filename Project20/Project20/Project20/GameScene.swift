@@ -18,6 +18,7 @@ class GameScene: SKScene {
     let bottomEdge = -22
     let rightEdge = 1024 + 22
     
+    var roundCounter = 0
     var scoreLabel: SKLabelNode!
     var score = 0 {
         didSet {
@@ -148,6 +149,12 @@ class GameScene: SKScene {
             break
             
         }
+        
+        roundCounter += 1
+        if roundCounter >= 10 {
+            gameTimer?.invalidate()
+            gameOver()
+        }
     }
     
     func checkTouches(_ touches: Set<UITouch>) {
@@ -207,6 +214,20 @@ class GameScene: SKScene {
             score += 2500
         default:
             score += 4000
+        }
+    }
+    
+    func gameOver() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self] in
+            let gameOver = SKLabelNode(fontNamed: "Chalkduster")
+            gameOver.position = CGPoint(x: 512, y: 384)
+            gameOver.fontSize = 36
+            gameOver.alpha = 0
+            gameOver.text = "Game Over"
+            self?.addChild(gameOver)
+            
+            let action = SKAction.fadeAlpha(to: 1, duration: 2)
+            gameOver.run(action)
         }
     }
 }
