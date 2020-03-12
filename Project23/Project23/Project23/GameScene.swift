@@ -542,5 +542,18 @@ class GameScene: SKScene {
             livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
             livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
         }
+        
+        let gameOver = SKSpriteNode(imageNamed: "game-over")
+        gameOver.position = CGPoint(x: 512, y: 384)
+        gameOver.zPosition = 4
+        gameOver.xScale = 0.5
+        gameOver.yScale = 0.5
+        
+        let scale = SKAction.scale(by: 1, duration: 0.3)
+        let fade = SKAction.fadeIn(withDuration: 0.3)
+        let group = SKAction.group([scale, fade])
+        
+        addChild(gameOver)
+        gameOver.run(group)
     }
 }
