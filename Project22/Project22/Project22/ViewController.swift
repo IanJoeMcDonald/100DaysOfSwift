@@ -15,6 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var firstBeaconFound = true
     
     @IBOutlet weak var distanceReading: UILabel!
+    @IBOutlet weak var uuidLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,39 +40,54 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon],
                          satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         if let beacon = beacons.first {
-            update(distance: beacon.proximity)
+            update(distance: beacon.proximity, uuid: beacon.uuid)
         } else {
-            update(distance: .unknown)
+            update(distance: .unknown, uuid: nil)
         }
         
     }
     
     func startScanning() {
-        let uuid = UUID(uuidString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")!
-        let beaconIdentity = CLBeaconIdentityConstraint(uuid: uuid, major: 123, minor: 456)
+        let uuid1 = UUID(uuidString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")!
+        let uuid2 = UUID(uuidString: "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0")!
+        let uuid3 = UUID(uuidString: "74278BDA-B644-4520-8F0C-720EAF059935")!
         
-        locationManager?.startRangingBeacons(satisfying: beaconIdentity)
+        let uuidList = [uuid1, uuid2, uuid3]
+        
+        
+        /// This code doesn't work, I have tried various different ways however only the last beacon added works. I may return in the future to try and fix this
+        for index in 0..<uuidList.count {
+            let uuid = uuidList[index]
+            let beaconIdentity = CLBeaconIdentityConstraint(uuid: uuid)
+            let beaconRegion = CLBeaconRegion(uuid: uuid, identifier: "Beacon\(index)")
+            locationManager?.startMonitoring(for: beaconRegion)
+            locationManager?.startRangingBeacons(satisfying: beaconIdentity)
+        }
     }
     
-    func update(distance: CLProximity) {
+    func update(distance: CLProximity, uuid: UUID?) {
         var showAlert = false
         UIView.animate(withDuration: 1) {
             switch distance {
             case .far:
                 self.view.backgroundColor = UIColor.blue
                 self.distanceReading.text = "FAR"
+                self.uuidLabel.text = uuid?.uuidString
                 showAlert = true
             case .near:
                 self.view.backgroundColor = UIColor.orange
                 self.distanceReading.text = "NEAR"
+                self.uuidLabel.text = uuid?.uuidString
                 showAlert = true
             case .immediate:
                 self.view.backgroundColor = UIColor.red
                 self.distanceReading.text = "RIGHT HERE"
+                self.uuidLabel.text = uuid?.uuidString
                 showAlert = true
             default:
                 self.view.backgroundColor = UIColor.gray
                 self.distanceReading.text = "UNKNOWN"
+                self.uuidLabel.text = "UNKNOWN"
             }
         }
         
