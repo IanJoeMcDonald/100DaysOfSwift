@@ -18,6 +18,31 @@ enum ForceBomb {
     case never, always, random
 }
 
+struct EnemyValues {
+    static let minXPosition = 64
+    static let maxXPosition = 960
+    static let yPosition = -128
+    
+    static let minAngularVelocity: CGFloat = -3
+    static let maxAngularVelocity: CGFloat = 3
+    
+    static let minLowXVelocity = 3
+    static let maxLowXVelocity = 5
+    static let minHighXVelocity = 8
+    static let maxHighXVelocity = 15
+    
+    static let minYVelocity = 24
+    static let maxYVelocity = 32
+    
+    static let velocityScaler = 40
+    
+    static let firstQuarterDivider: CGFloat = 256
+    static let middleDivider: CGFloat = 512
+    static let threeQuarterDivider: CGFloat = 768
+    
+    static let physicsBodySize: CGFloat = 64
+}
+
 class GameScene: SKScene {
     
     var gameScore: SKLabelNode!
@@ -346,30 +371,38 @@ class GameScene: SKScene {
         }
         
         // 1
-        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        let randomPosition = CGPoint(x:
+            Int.random(in: EnemyValues.minXPosition...EnemyValues.maxXPosition),
+                                     y: EnemyValues.yPosition)
         enemy.position = randomPosition
         
         // 2
-        let randomAngularVelocity = CGFloat.random(in: -3...3)
+        let randomAngularVelocity = CGFloat.random(in: EnemyValues.minAngularVelocity ...
+            EnemyValues.maxAngularVelocity)
         let randomXVelocity: Int
         
         // 3
-        if randomPosition.x < 256 {
-            randomXVelocity = Int.random(in: 8...15)
-        } else  if randomPosition.x < 512 {
-            randomXVelocity = Int.random(in: 3...5)
-        } else if randomPosition.x < 768 {
-            randomXVelocity = -Int.random(in: 3...5)
+        if randomPosition.x < EnemyValues.firstQuarterDivider {
+            randomXVelocity = Int.random(in: EnemyValues.minHighXVelocity ...
+                EnemyValues.maxHighXVelocity)
+        } else  if randomPosition.x < EnemyValues.middleDivider {
+            randomXVelocity = Int.random(in: EnemyValues.minLowXVelocity ...
+            EnemyValues.maxLowXVelocity)
+        } else if randomPosition.x < EnemyValues.threeQuarterDivider {
+            randomXVelocity = -Int.random(in: EnemyValues.minLowXVelocity ...
+            EnemyValues.maxLowXVelocity)
         } else   {
-            randomXVelocity = -Int.random(in: 8...15)
+            randomXVelocity = -Int.random(in: EnemyValues.minHighXVelocity ...
+            EnemyValues.maxHighXVelocity)
         }
         
         // 4
-        let randomYVelocity = Int.random(in: 24...32)
+        let randomYVelocity = Int.random(in: EnemyValues.minYVelocity...EnemyValues.maxYVelocity)
         
         // 5
-        enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
-        enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
+        enemy.physicsBody = SKPhysicsBody(circleOfRadius: EnemyValues.physicsBodySize)
+        enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * EnemyValues.velocityScaler,
+                                               dy: randomYVelocity * EnemyValues.velocityScaler)
         enemy.physicsBody?.angularVelocity = randomAngularVelocity
         enemy.physicsBody?.collisionBitMask = 0
         
