@@ -114,3 +114,12 @@ let number = "123"
 let nonNumber = "Hello"
 number.isNumeric
 nonNumber.isNumeric
+
+extension String {
+    var lines: Int {
+        return self.filter( { $0 == "\n" }).count + 1
+    }
+}
+
+let lines = "Hello\nHello\nHello\nHello"
+lines.lines
