@@ -103,3 +103,14 @@ print(carpet)
 let petNotRepeated = pet.withPrefix("pet")
 print(petNotRepeated)
 
+extension String {
+    var isNumeric: Bool {
+        guard let _ = Double(self) else { return false }
+        return true
+    }
+}
+
+let number = "123"
+let nonNumber = "Hello"
+number.isNumeric
+nonNumber.isNumeric
