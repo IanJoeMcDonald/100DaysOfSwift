@@ -27,18 +27,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNi-mZ-GZN">
+                                <rect key="frame" x="79" y="158" width="256" height="256"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="BYs-2N-LGI"/>
+                                    <constraint firstAttribute="width" secondItem="XNi-mZ-GZN" secondAttribute="height" multiplier="1:1" id="Mqc-wb-AKJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="aDW-YX-Y6i" firstAttribute="top" secondItem="XNi-mZ-GZN" secondAttribute="bottom" constant="10" id="G0B-AB-NgP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Nni-XS-dFP" secondAttribute="trailing" constant="10" id="OcJ-PW-ykK"/>
                             <constraint firstItem="aDW-YX-Y6i" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="QMb-dm-jSC"/>
                             <constraint firstItem="Nni-XS-dFP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Rv3-oe-hdW"/>
                             <constraint firstItem="Nni-XS-dFP" firstAttribute="top" secondItem="aDW-YX-Y6i" secondAttribute="bottom" constant="10" id="awx-58-2Sa"/>
+                            <constraint firstItem="XNi-mZ-GZN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gFD-a9-26w"/>
                             <constraint firstItem="aDW-YX-Y6i" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xSd-5x-HiG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="circleView" destination="XNi-mZ-GZN" id="1gx-aQ-Nxj"/>
                         <outlet property="distanceReading" destination="aDW-YX-Y6i" id="RhR-dv-wPP"/>
                         <outlet property="uuidLabel" destination="Nni-XS-dFP" id="MS2-Z2-qqq"/>
                     </connections>

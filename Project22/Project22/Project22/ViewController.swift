@@ -16,6 +16,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var distanceReading: UILabel!
     @IBOutlet weak var uuidLabel: UILabel!
+    @IBOutlet weak var circleView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
+        updateCircle(distance: .unknown)
         
         view.backgroundColor = .gray
     }
@@ -90,7 +92,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.uuidLabel.text = "UNKNOWN"
             }
         }
-        
+        updateCircle(distance: distance)
         if showAlert && firstBeaconFound {
             firstBeaconFound = false
             
@@ -99,6 +101,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             ac.addAction(UIAlertAction(title: "Close", style: .cancel))
             present(ac, animated: true)
         }
+    }
+    
+    func updateCircle(distance: CLProximity) {
+        circleView.layer.cornerRadius = 128
+        circleView.clipsToBounds = true
+        UIView.animate(withDuration: 1) {
+            switch distance{
+            case .far:
+                self.circleView.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
+            case .near:
+                self.circleView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            case .immediate:
+                self.circleView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            default:
+                self.circleView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+            }
+        }
+        
     }
 }
 
