@@ -27,7 +27,12 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         let text = UIBarButtonItem(title: "Text", style: .plain, target: self,
                                    action: #selector(sendText))
         navigationItem.rightBarButtonItems = [camera, text]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
+        
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                  action: #selector(showConnectionPrompt))
+        let show = UIBarButtonItem(title: "Show", style: .plain, target: self,
+                                  action: #selector(showConnections))
+        navigationItem.leftBarButtonItems = [add, show]
         
         mcSession = MCSession(peer: peerID, securityIdentity: nil,
                               encryptionPreference: .required)
@@ -77,6 +82,22 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             }
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    @objc func showConnections() {
+        var connsList = ""
+        
+        if mcSession?.connectedPeers.count == 0 {
+            connsList = "None"
+        } else if let mcSession = mcSession {
+            for index in 0..<mcSession.connectedPeers.count {
+                connsList += mcSession.connectedPeers[index].displayName + "\n"
+            }
+        }
+        
+        let ac = UIAlertController(title: "Connections", message: connsList, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
     
