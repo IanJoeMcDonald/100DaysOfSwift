@@ -22,9 +22,11 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         
         
         title = "Selfie Share"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera,
-                                                            target: self,
-                                                            action: #selector(importPicture))
+        let camera = UIBarButtonItem(barButtonSystemItem: .camera, target: self,
+                                     action: #selector(importPicture))
+        let text = UIBarButtonItem(title: "Text", style: .plain, target: self,
+                                   action: #selector(sendText))
+        navigationItem.rightBarButtonItems = [camera, text]
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
         
         mcSession = MCSession(peer: peerID, securityIdentity: nil,
@@ -51,6 +53,31 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    @objc func sendText() {
+        let ac = UIAlertController(title: "Send Text", message: "Enter text below to send text",
+                                   preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Send", style: .default, handler: { [weak self]_ in
+            if let text = ac.textFields?[0].text {
+                guard let mcSession = self?.mcSession else { return }
+                if mcSession.connectedPeers.count > 0 {
+                    do {
+                        try mcSession.send(Data(text.utf8), toPeers: mcSession.connectedPeers,
+                                           with: .reliable)
+                    } catch {
+                        let ac = UIAlertController(title: "Send error",
+                                                   message: error.localizedDescription,
+                                                   preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(ac, animated: true)
+                    }
+                }
+            }
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -132,6 +159,12 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+            } else {
+                let text = String(decoding: data, as: UTF8.self)
+                let ac = UIAlertController(title: "\(peerID.displayName) sent a message",
+                    message: text, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Close", style: .cancel))
+                self?.present(ac, animated: true)
             }
         }
     }
