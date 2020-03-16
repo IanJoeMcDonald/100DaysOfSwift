@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		619B7DC3241FC5CC00EA7446 /* level0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 619B7DC2241FC5CC00EA7446 /* level0.txt */; };
+		619B7DC5241FC97D00EA7446 /* teleport@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 619B7DC4241FC97D00EA7446 /* teleport@2x.png */; };
+		619B7DC7241FD9C300EA7446 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 619B7DC6241FD9C300EA7446 /* level2.txt */; };
 		9A5E7C7F241D9EAC00B2E61F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E7C7E241D9EAC00B2E61F /* AppDelegate.swift */; };
 		9A5E7C81241D9EAC00B2E61F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E7C80241D9EAC00B2E61F /* GameScene.sks */; };
 		9A5E7C85241D9EAC00B2E61F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E7C84241D9EAC00B2E61F /* GameScene.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		619B7DC2241FC5CC00EA7446 /* level0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level0.txt; sourceTree = "<group>"; };
+		619B7DC4241FC97D00EA7446 /* teleport@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "teleport@2x.png"; sourceTree = "<group>"; };
+		619B7DC6241FD9C300EA7446 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
 		9A5E7C7B241D9EAC00B2E61F /* Project26.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project26.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5E7C7E241D9EAC00B2E61F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A5E7C80241D9EAC00B2E61F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				9A5E7C97241D9F9100B2E61F /* finish@2x.png */,
+				619B7DC6241FD9C300EA7446 /* level2.txt */,
 				9A5E7C98241D9F9100B2E61F /* level1.txt */,
 				619B7DC2241FC5CC00EA7446 /* level0.txt */,
 				9A5E7C99241D9F9100B2E61F /* star@2x.png */,
@@ -98,6 +103,7 @@
 				9A5E7C9B241D9F9100B2E61F /* block@2x.png */,
 				9A5E7C9C241D9F9100B2E61F /* vortex@2x.png */,
 				9A5E7C9D241D9F9100B2E61F /* background@2x.jpg */,
+				619B7DC4241FC97D00EA7446 /* teleport@2x.png */,
 			);
 			name = Content;
 			path = ../../Content;
@@ -169,6 +175,8 @@
 				9A5E7CA0241D9F9100B2E61F /* star@2x.png in Resources */,
 				9A5E7CA3241D9F9100B2E61F /* vortex@2x.png in Resources */,
 				9A5E7C9E241D9F9100B2E61F /* finish@2x.png in Resources */,
+				619B7DC7241FD9C300EA7446 /* level2.txt in Resources */,
+				619B7DC5241FC97D00EA7446 /* teleport@2x.png in Resources */,
 				9A5E7C9F241D9F9100B2E61F /* level1.txt in Resources */,
 				9A5E7C8C241D9EAF00B2E61F /* Assets.xcassets in Resources */,
 				9A5E7C8F241D9EAF00B2E61F /* LaunchScreen.storyboard in Resources */,

@@ -16,6 +16,7 @@ enum CollisionTypes: UInt32 {
     case star = 4
     case vortex = 8
     case finish = 16
+    case teleport = 32
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -35,6 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isGameOver = false
     
     var level = 0
+    
+    var teleportLocations = [SKNode]()
     
     override func didMove(to view: SKView) {
         createLabelAndBackground()
@@ -125,6 +128,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     loadFinish(at: position)
                 } else if letter == " " {
                     // this is an empty space – do nothing!
+                } else if letter == "t" {
+                    loadTeleport(at: position)
                 } else {
                     fatalError("Unknown level letter: \(letter)")
                 }
@@ -134,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func loadLevelString(number: Int) -> [String] {
         //number of levels crated is 2 so we verify that either we have level 0 or 1
-        let modulo = number % 2
+        let modulo = number % 3
         guard let levelURL = Bundle.main.url(forResource: "level\(modulo)", withExtension: "txt") else {
             fatalError("Could not find level1.txt in the app bundle.")
         }
@@ -196,6 +201,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
+    func loadTeleport(at position: CGPoint) {
+        let node = SKSpriteNode(imageNamed: "teleport")
+        node.name = "teleport"
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
+        node.physicsBody?.isDynamic = false
+        
+        node.physicsBody?.categoryBitMask = CollisionTypes.teleport.rawValue
+        node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
+        node.physicsBody?.collisionBitMask = 0
+        node.position = position
+        teleportLocations.append(node)
+        addChild(node)
+    }
+    
     func createPlayer() {
         player = SKSpriteNode(imageNamed: "player")
         player.position = CGPoint(x: 96, y: 672)
@@ -212,6 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createNewLevel() {
         removeAllChildren()
+        teleportLocations.removeAll(keepingCapacity: true)
         createLabelAndBackground()
         loadLevel(number: level)
         createPlayer()
@@ -238,6 +258,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if node.name == "finish" {
             level += 1
             createNewLevel()
+        } else if node.name == "teleport" {
+            guard let index = teleportLocations.firstIndex(of: node) else { return }
+            teleportLocations.remove(at: index)
+            guard let newNode = teleportLocations.first else { return }
+            
+            let scaleDown = SKAction.scale(to: 0.0001, duration: 0.25)
+            let move = SKAction.move(to: newNode.position, duration: 0.25)
+            let scaleUp = SKAction.scale(to: 1, duration: 0.5)
+            let sequence = SKAction.sequence([scaleDown, move, scaleUp])
+            
+            player.run(sequence) {
+                node.removeFromParent()
+                newNode.removeFromParent()
+            }
         }
     }
 }
