@@ -153,10 +153,37 @@ class ViewController: UIViewController {
         imageView.image = img
     }
     
+    func drawEmoji() {
+        let center = CGPoint(x: 256, y: 256)
+        let r: CGFloat = 256
+        let flip: CGFloat = -1
+        
+        let theta = 2.0 * Double.pi * (2.0 / 5)
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            let x: CGFloat = r * CGFloat(sin(0 * theta)) + center.x
+            let y: CGFloat = r * CGFloat(cos(0 * theta)) * flip + center.y
+            ctx.cgContext.move(to: CGPoint(x: x, y: y))
+            for index in 1 ..< 5 {
+                let x: CGFloat = r * CGFloat(sin(Double(index) * theta))
+                let y: CGFloat = r * CGFloat(cos(Double(index) * theta))
+                
+                ctx.cgContext.addLine(to: CGPoint(x: x + center.x, y: y * flip + center.y))
+            }
+            ctx.cgContext.closePath()
+            ctx.cgContext.setFillColor(UIColor.yellow.cgColor)
+            ctx.cgContext.fillPath()
+        }
+        
+        imageView.image = img
+    }
+    
     @IBAction func redrawTapped(_ sender: UIButton) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 6 {
             currentDrawType = 0
         }
         
@@ -173,6 +200,8 @@ class ViewController: UIViewController {
             drawLines()
         case 5:
             drawImagesAndText()
+        case 6:
+            drawEmoji()
             
         default:
             break
