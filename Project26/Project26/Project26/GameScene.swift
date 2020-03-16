@@ -34,19 +34,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var isGameOver = false
     
+    var level = 0
+    
     override func didMove(to view: SKView) {
-        let background = SKSpriteNode(imageNamed: "background.jpg")
-        background.position = CGPoint(x: 512, y: 384)
-        background.blendMode = .replace
-        background.zPosition = -1
-        addChild(background)
-        
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.text = "Score: 0"
-        scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.position = CGPoint(x: 16, y: 16)
-        scoreLabel.zPosition = 2
-        addChild(scoreLabel)
+        createLabelAndBackground()
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
@@ -54,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
         
-        loadLevel()
+        loadLevel(number: level)
         createPlayer()
     }
     
@@ -102,8 +93,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func loadLevel() {
-        let lines = loadLevelString()
+    func createLabelAndBackground() {
+        let background = SKSpriteNode(imageNamed: "background.jpg")
+        background.position = CGPoint(x: 512, y: 384)
+        background.blendMode = .replace
+        background.zPosition = -1
+        addChild(background)
+        
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.text = "Score: \(score)"
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.position = CGPoint(x: 16, y: 16)
+        scoreLabel.zPosition = 2
+        addChild(scoreLabel)
+    }
+    
+    func loadLevel(number: Int) {
+        let lines = loadLevelString(number: number)
         
         for (row, line) in lines.reversed().enumerated() {
             for (column, letter) in line.enumerated() {
@@ -126,8 +132,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func loadLevelString() -> [String] {
-        guard let levelURL = Bundle.main.url(forResource: "level1", withExtension: "txt") else {
+    func loadLevelString(number: Int) -> [String] {
+        //number of levels crated is 2 so we verify that either we have level 0 or 1
+        let modulo = number % 2
+        guard let levelURL = Bundle.main.url(forResource: "level\(modulo)", withExtension: "txt") else {
             fatalError("Could not find level1.txt in the app bundle.")
         }
         
@@ -202,6 +210,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(player)
     }
     
+    func createNewLevel() {
+        removeAllChildren()
+        createLabelAndBackground()
+        loadLevel(number: level)
+        createPlayer()
+    }
+    
     func playerCollided(with node: SKNode) {
         if node.name == "vortex" {
             player.physicsBody?.isDynamic = false
@@ -221,7 +236,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             node.removeFromParent()
             score += 1
         } else if node.name == "finish" {
-            // next level?
+            level += 1
+            createNewLevel()
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		619B7DC3241FC5CC00EA7446 /* level0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 619B7DC2241FC5CC00EA7446 /* level0.txt */; };
 		9A5E7C7F241D9EAC00B2E61F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E7C7E241D9EAC00B2E61F /* AppDelegate.swift */; };
 		9A5E7C81241D9EAC00B2E61F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E7C80241D9EAC00B2E61F /* GameScene.sks */; };
 		9A5E7C85241D9EAC00B2E61F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5E7C84241D9EAC00B2E61F /* GameScene.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		619B7DC2241FC5CC00EA7446 /* level0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level0.txt; sourceTree = "<group>"; };
 		9A5E7C7B241D9EAC00B2E61F /* Project26.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project26.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5E7C7E241D9EAC00B2E61F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A5E7C80241D9EAC00B2E61F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				9A5E7C97241D9F9100B2E61F /* finish@2x.png */,
 				9A5E7C98241D9F9100B2E61F /* level1.txt */,
+				619B7DC2241FC5CC00EA7446 /* level0.txt */,
 				9A5E7C99241D9F9100B2E61F /* star@2x.png */,
 				9A5E7C9A241D9F9100B2E61F /* player@2x.png */,
 				9A5E7C9B241D9F9100B2E61F /* block@2x.png */,
@@ -162,6 +165,7 @@
 				9A5E7CA4241D9F9100B2E61F /* background@2x.jpg in Resources */,
 				9A5E7CA2241D9F9100B2E61F /* block@2x.png in Resources */,
 				9A5E7C81241D9EAC00B2E61F /* GameScene.sks in Resources */,
+				619B7DC3241FC5CC00EA7446 /* level0.txt in Resources */,
 				9A5E7CA0241D9F9100B2E61F /* star@2x.png in Resources */,
 				9A5E7CA3241D9F9100B2E61F /* vortex@2x.png in Resources */,
 				9A5E7C9E241D9F9100B2E61F /* finish@2x.png in Resources */,
