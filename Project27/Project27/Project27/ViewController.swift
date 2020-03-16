@@ -180,10 +180,45 @@ class ViewController: UIViewController {
         imageView.image = img
     }
     
+    func drawTwin() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 500, height: 100))
+        
+        let img = renderer.image { ctx in
+            ctx.cgContext.move(to: CGPoint(x: 5, y: 2.5))
+            ctx.cgContext.addLine(to: CGPoint(x: 95, y: 2.5))
+            ctx.cgContext.move(to: CGPoint(x: 47.5, y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: 47.5, y: 100))
+            
+            ctx.cgContext.move(to: CGPoint(x: 100,y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: 147.5, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 195, y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: 242.5, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 290, y: 0))
+            
+            ctx.cgContext.move(to: CGPoint(x: 300, y: 2.5))
+            ctx.cgContext.addLine(to: CGPoint(x: 390, y: 2.5))
+            ctx.cgContext.move(to: CGPoint(x: 300, y: 97.5))
+            ctx.cgContext.addLine(to: CGPoint(x: 390, y: 97.5))
+            ctx.cgContext.move(to: CGPoint(x: 345, y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: 345, y: 100))
+            
+            ctx.cgContext.move(to: CGPoint(x: 400, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 400, y: 0))
+            ctx.cgContext.addLine(to: CGPoint(x: 490, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 490, y: 0))
+        
+            ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
+            ctx.cgContext.setLineWidth(5)
+            ctx.cgContext.strokePath()
+        }
+        
+        imageView.image = img
+    }
+    
     @IBAction func redrawTapped(_ sender: UIButton) {
         currentDrawType += 1
         
-        if currentDrawType > 6 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -202,6 +237,8 @@ class ViewController: UIViewController {
             drawImagesAndText()
         case 6:
             drawEmoji()
+        case 7:
+            drawTwin()
             
         default:
             break
