@@ -29,6 +29,7 @@ class ViewController: UIViewController {
                                        object: nil)
         
         title = "Nothing to see here"
+        checkForPassword()
     }
 
     @objc func adjustForKeyboard(notification: Notification) {
@@ -76,6 +77,39 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = nil
     }
     
+    func checkForPassword() {
+        if let _ = KeychainWrapper.standard.string(forKey: "Password") { return }
+        
+        let ac = UIAlertController(title: "Set Unlock Password",
+                                   message: "Enter the password to unlock the secret message",
+                                   preferredStyle: .alert)
+        ac.addTextField()
+        ac.textFields?[0].isSecureTextEntry = true
+        ac.addAction(UIAlertAction(title: "Set", style: .default, handler: { _ in
+            if let password = ac.textFields?[0].text {
+                KeychainWrapper.standard.set(password, forKey: "Password")
+            }
+        }))
+        present(ac, animated: true)
+    }
+    
+    func comparePassword() {
+        let ac = UIAlertController(title: "Enter Unlock Password", message: nil,
+                                   preferredStyle: .alert)
+        ac.addTextField()
+        ac.textFields?[0].isSecureTextEntry = true
+        ac.addAction(UIAlertAction(title: "Unlock", style: .default, handler: { [weak self] _ in
+            if let password = ac.textFields?[0].text {
+                let storedPassword = KeychainWrapper.standard.string(forKey: "Password")
+                if password == storedPassword {
+                    self?.unlockSecretMessage()
+                }
+            }
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
     @IBAction func authenticateTapped(_ sender: Any) {
         let context = LAContext()
         var error: NSError?
@@ -88,20 +122,12 @@ class ViewController: UIViewController {
                     if success {
                         self?.unlockSecretMessage()
                     } else {
-                        let ac = UIAlertController(title: "Authentication failed",
-                                                   message: "You could not be verified; please try again",
-                                                   preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
-                        self?.present(ac, animated: true)
+                        self?.comparePassword()
                     }
                 }
             }
         } else {
-            let ac = UIAlertController(title: "Biometry unavailable",
-                                       message: "Your device is not configured for biometric authentication.",
-                                       preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+           comparePassword()
         }
     }
 }
