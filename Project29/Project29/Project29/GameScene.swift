@@ -17,7 +17,11 @@ enum CollisionTypes: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    weak var viewController: GameViewController!
+    weak var viewController: GameViewController! {
+        didSet {
+            viewController.windForce = windForce
+        }
+    }
     
     var buildings = [BuildingNode]()
     var player1: SKSpriteNode!
@@ -25,12 +29,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var banana: SKSpriteNode!
     
     var currentPlayer = 1
+    var windForce: CGFloat = 0
     
     override func didMove(to view: SKView) {
         backgroundColor = UIColor(hue: 0.669, saturation: 0.99, brightness: 0.67, alpha: 1)
         
         createBuildings()
         createPlayers()
+        createWind()
         
         physicsWorld.contactDelegate = self
     }
@@ -118,6 +124,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                    y: player2Building.position.y + ((player2Building.size.height +
                                     player2.size.height) / 2))
         addChild(player2)
+    }
+    
+    func createWind() {
+        windForce = CGFloat.random(in: -5...5)
+        if viewController != nil {
+            viewController.windForce = windForce
+        }
+        physicsWorld.gravity = CGVector(dx: windForce, dy: CGFloat(-9.8))
     }
     
     func launch(angle: Int, velocity: Int) {

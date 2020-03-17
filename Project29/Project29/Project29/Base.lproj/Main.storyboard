@@ -97,12 +97,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind: 0mph &lt;&lt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRR-ee-IIM">
+                                <rect key="frame" x="891" y="112" width="119" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Npm-Hv-wiE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="gA1-iG-hjA" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="22" id="3TO-1F-6Pn"/>
+                            <constraint firstItem="fRR-ee-IIM" firstAttribute="top" secondItem="ATz-bb-rgu" secondAttribute="bottom" constant="20" id="ANT-iB-Yli"/>
                             <constraint firstItem="ATz-bb-rgu" firstAttribute="top" secondItem="uTL-l8-u7v" secondAttribute="bottom" constant="14" id="BK0-YE-4Uo"/>
                             <constraint firstItem="uTL-l8-u7v" firstAttribute="leading" secondItem="SGT-EK-Zpc" secondAttribute="trailing" constant="5" id="Bzd-2s-Gcs"/>
+                            <constraint firstItem="fRR-ee-IIM" firstAttribute="trailing" secondItem="ATz-bb-rgu" secondAttribute="trailing" id="CaZ-Hj-CFc"/>
                             <constraint firstItem="rE6-1Q-ciJ" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="20" id="DlN-BE-Peg"/>
                             <constraint firstItem="SG6-Mb-jsl" firstAttribute="leading" secondItem="gA1-iG-hjA" secondAttribute="leading" id="MGd-CT-S6Q"/>
                             <constraint firstItem="uTL-l8-u7v" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="13" id="PM4-Sr-7S8"/>
@@ -128,6 +139,7 @@
                         <outlet property="playerNumber" destination="ho8-GQ-6Gf" id="NRy-Kj-OzI"/>
                         <outlet property="velocityLabel" destination="SGT-EK-Zpc" id="DVB-vk-EvB"/>
                         <outlet property="velocitySlider" destination="rE6-1Q-ciJ" id="26a-gv-13D"/>
+                        <outlet property="windLabel" destination="fRR-ee-IIM" id="dvD-zV-SGU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

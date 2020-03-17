@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var playerNumber: UILabel!
     @IBOutlet weak var player1ScoreLabel: UILabel!
     @IBOutlet weak var player2ScoreLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
     
     var currentGame: GameScene!
     var isGameOver = false
@@ -38,6 +39,17 @@ class GameViewController: UIViewController {
             if player2Score >= 3 {
                 isGameOver = true
                 gameOver(winner: 2)
+            }
+        }
+    }
+    
+    var windForce:CGFloat = 0 {
+        didSet {
+            let value = String(format: "%.01f", abs(windForce))
+            if windForce > 0 {
+                windLabel.text = "Wind: \(value)mph >>"
+            } else {
+                windLabel.text = "Wind: \(value)mph <<"
             }
         }
     }
