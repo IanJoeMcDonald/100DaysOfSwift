@@ -33,6 +33,8 @@ class SelectionViewController: UITableViewController {
                 }
             }
         }
+        
+        preparePhotos()
 		
     }
 
@@ -66,32 +68,17 @@ class SelectionViewController: UITableViewController {
 
 		// find the image for this cell, and load its thumbnail
 		let currentImage = items[indexPath.row % items.count]
-		let imageRootName = currentImage.replacingOccurrences(of: "Large", with: "Thumb")
-        let original: UIImage!
-        if let path = Bundle.main.path(forResource: imageRootName, ofType: nil) {
-            original = UIImage(contentsOfFile: path)
-        } else {
-            original = UIImage()
-        }
-		
+		let imageRootName = currentImage.replacingOccurrences(of: "Large", with: "Small")
+        let path = getDocumentsDirectory().appendingPathComponent(imageRootName)
 
-        let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
-        let renderer = UIGraphicsImageRenderer(size: renderRect.size)
-
-		let rounded = renderer.image { ctx in
-			ctx.cgContext.addEllipse(in: renderRect)
-			ctx.cgContext.clip()
-
-            original.draw(in: renderRect)
-		}
-
-		cell.imageView?.image = rounded
+        cell.imageView?.image = UIImage(contentsOfFile: path.path)
 
 		// give the images a nice shadow to make them look a bit more dramatic
 		cell.imageView?.layer.shadowColor = UIColor.black.cgColor
 		cell.imageView?.layer.shadowOpacity = 1
 		cell.imageView?.layer.shadowRadius = 10
 		cell.imageView?.layer.shadowOffset = CGSize.zero
+        let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
         cell.imageView?.layer.shadowPath = UIBezierPath(ovalIn: renderRect).cgPath
 
 		// each image stores how often it's been tapped
@@ -113,4 +100,42 @@ class SelectionViewController: UITableViewController {
 		viewControllers.append(vc)
 		navigationController?.pushViewController(vc, animated: true)
 	}
+    
+    func preparePhotos() {
+        for item in items {
+            let smallName = item.replacingOccurrences(of: "Large", with: "Small")
+            let docPath = getDocumentsDirectory().appendingPathComponent(smallName)
+            
+            if FileManager.default.fileExists(atPath: docPath.path) {
+                // File exists continue
+                continue
+            }
+            
+            // create Image and save to documents directory
+            let thumbName = item.replacingOccurrences(of: "Large", with: "Thumb")
+            guard let path = Bundle.main.path(forResource: thumbName, ofType: nil) else { continue }
+            guard let image = UIImage(contentsOfFile: path) else { continue }
+            
+            let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
+            let renderer = UIGraphicsImageRenderer(size: renderRect.size)
+
+            let rounded = renderer.image { ctx in
+                ctx.cgContext.addEllipse(in: renderRect)
+                ctx.cgContext.clip()
+                
+                image.draw(in: renderRect)
+            }
+            
+            let imagePath = getDocumentsDirectory().appendingPathComponent(smallName)
+            
+            if let pngData = rounded.pngData() {
+                try? pngData.write(to: imagePath)
+            }
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 }
