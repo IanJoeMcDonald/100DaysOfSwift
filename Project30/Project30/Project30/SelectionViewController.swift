@@ -24,13 +24,16 @@ class SelectionViewController: UITableViewController {
 		// load all the JPEGs into our array
 		let fm = FileManager.default
 
-		if let tempItems = try? fm.contentsOfDirectory(atPath: Bundle.main.resourcePath!) {
-			for item in tempItems {
-				if item.range(of: "Large") != nil {
-					items.append(item)
-				}
-			}
-		}
+        if let bundlePath = Bundle.main.resourcePath {
+            if let tempItems = try? fm.contentsOfDirectory(atPath: bundlePath) {
+                for item in tempItems {
+                    if item.range(of: "Large") != nil {
+                        items.append(item)
+                    }
+                }
+            }
+        }
+		
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +67,13 @@ class SelectionViewController: UITableViewController {
 		// find the image for this cell, and load its thumbnail
 		let currentImage = items[indexPath.row % items.count]
 		let imageRootName = currentImage.replacingOccurrences(of: "Large", with: "Thumb")
-		let path = Bundle.main.path(forResource: imageRootName, ofType: nil)!
-		let original = UIImage(contentsOfFile: path)!
+        let original: UIImage!
+        if let path = Bundle.main.path(forResource: imageRootName, ofType: nil) {
+            original = UIImage(contentsOfFile: path)
+        } else {
+            original = UIImage()
+        }
+		
 
         let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
         let renderer = UIGraphicsImageRenderer(size: renderRect.size)
@@ -103,6 +111,6 @@ class SelectionViewController: UITableViewController {
 
 		// add to our view controller cache and show
 		viewControllers.append(vc)
-		navigationController!.pushViewController(vc, animated: true)
+		navigationController?.pushViewController(vc, animated: true)
 	}
 }
