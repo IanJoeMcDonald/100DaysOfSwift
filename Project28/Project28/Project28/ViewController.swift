@@ -60,6 +60,9 @@ class ViewController: UIViewController {
         if let text = KeychainWrapper.standard.string(forKey: "SecretMessage") {
             secret.text = text
         }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                            target: self,
+                                                            action: #selector(saveSecretMessage))
     }
     
     @objc func saveSecretMessage() {
@@ -69,6 +72,8 @@ class ViewController: UIViewController {
         secret.resignFirstResponder()
         secret.isHidden = true
         title = "Nothing to see here"
+        
+        navigationItem.rightBarButtonItem = nil
     }
     
     @IBAction func authenticateTapped(_ sender: Any) {
