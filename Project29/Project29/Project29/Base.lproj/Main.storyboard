@@ -61,6 +61,20 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 1 Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG6-Mb-jsl">
+                                <rect key="frame" x="10" y="69" width="150" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player 2 Score: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATz-bb-rgu">
+                                <rect key="frame" x="864" y="71" width="150" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
@@ -69,6 +83,8 @@
                         <outlet property="angleLabel" destination="lwf-0w-sCE" id="Lb0-s4-Bdf"/>
                         <outlet property="angleSlider" destination="gA1-iG-hjA" id="kLQ-GM-xa0"/>
                         <outlet property="launchButton" destination="uTL-l8-u7v" id="e3I-Uv-D5d"/>
+                        <outlet property="player1ScoreLabel" destination="SG6-Mb-jsl" id="6Ms-6c-qPL"/>
+                        <outlet property="player2ScoreLabel" destination="ATz-bb-rgu" id="kyr-tl-RlV"/>
                         <outlet property="playerNumber" destination="ho8-GQ-6Gf" id="NRy-Kj-OzI"/>
                         <outlet property="velocityLabel" destination="SGT-EK-Zpc" id="DVB-vk-EvB"/>
                         <outlet property="velocitySlider" destination="rE6-1Q-ciJ" id="26a-gv-13D"/>

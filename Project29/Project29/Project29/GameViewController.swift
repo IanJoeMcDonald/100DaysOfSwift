@@ -18,8 +18,29 @@ class GameViewController: UIViewController {
     @IBOutlet weak var velocityLabel: UILabel!
     @IBOutlet weak var launchButton: UIButton!
     @IBOutlet weak var playerNumber: UILabel!
+    @IBOutlet weak var player1ScoreLabel: UILabel!
+    @IBOutlet weak var player2ScoreLabel: UILabel!
     
     var currentGame: GameScene!
+    var isGameOver = false
+    var player1Score = 0 {
+        didSet {
+            player1ScoreLabel.text = "Player 1 Score: \(player1Score)"
+            if player1Score >= 3 {
+                isGameOver = true
+                gameOver(winner: 1)
+            }
+        }
+    }
+    var player2Score = 0 {
+        didSet {
+            player2ScoreLabel.text = "Player 2 Score: \(player2Score)"
+            if player2Score >= 3 {
+                isGameOver = true
+                gameOver(winner: 2)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,19 +83,37 @@ class GameViewController: UIViewController {
     }
     
     func activatePlayer(number: Int) {
-        if number == 1 {
-            playerNumber.text = "<<< PLAYER ONE"
+        if !isGameOver {
+            if number == 1 {
+                playerNumber.text = "<<< PLAYER ONE"
+            } else {
+                playerNumber.text = "PLAYER TWO >>>"
+            }
+            
+            angleSlider.isHidden = false
+            angleLabel.isHidden = false
+            
+            velocitySlider.isHidden = false
+            velocityLabel.isHidden = false
+            
+            launchButton.isHidden = false
+        }
+    }
+    
+    func gameOver(winner: Int) {
+        if winner == 1 {
+            playerNumber.text = "<<< PLAYER 1 WINS"
         } else {
-            playerNumber.text = "PLAYER TWO >>>"
+            playerNumber.text = "PLAYER 2 WINS >>>"
         }
         
-        angleSlider.isHidden = false
-        angleLabel.isHidden = false
+        angleSlider.isHidden = true
+        angleLabel.isHidden = true
         
-        velocitySlider.isHidden = false
-        velocityLabel.isHidden = false
+        velocitySlider.isHidden = true
+        velocityLabel.isHidden = true
         
-        launchButton.isHidden = false
+        launchButton.isHidden = true
     }
     
     @IBAction func angleChanged(_ sender: UISlider) {
